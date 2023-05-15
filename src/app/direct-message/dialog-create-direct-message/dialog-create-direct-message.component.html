@@ -1,0 +1,52 @@
+<div class="dialog-header">
+  <h1>Leute zum Workspace einladen</h1>
+  <div class="icon-container">
+    <mat-icon mat-button mat-dialog-close>close</mat-icon>
+  </div>
+</div>
+
+<h4>An:</h4>
+<form
+  (ngSubmit)="
+    dmService.createDmChannel(dmForm.value.uid, dmForm.value.displayName)
+  "
+  [formGroup]="dmForm"
+  id="dm-form"
+  class="create-channel-input create-direct-message"
+>
+  <mat-form-field class="form-field-direct-message" appearance="fill">
+    <mat-label>Name</mat-label>
+    <input
+      type="text"
+      placeholder="Pick one"
+      aria-label="Name"
+      matInput
+      formControlName="displayName"
+      [matAutocomplete]="auto"
+      required
+    />
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option
+        (click)="selectUserId(user)"
+        *ngFor="let user of filteredOptions | async"
+        [value]="user['displayName']"
+      >
+        {{ user["displayName"] }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
+<mat-error>
+  <ng-container *ngIf="dmService.userExists && !dmService.onlyExistingUsers">
+    <p class="error">Channel exists</p>
+  </ng-container>
+  <ng-container *ngIf="dmService.onlyExistingUsers && !dmService.userExists">
+    <p class="error">User does not Exist</p>
+  </ng-container>
+</mat-error>
+<p class="dialog-description">
+  Suche nach Leuten und lade Sie zu einer Unterhaltung ein.
+</p>
+<div mat-dialog-actions class="btn-container">
+  <button form="dm-form" ng mat-button class="btn" [disabled]="!dmForm.value.displayName">Senden</button>
+</div>

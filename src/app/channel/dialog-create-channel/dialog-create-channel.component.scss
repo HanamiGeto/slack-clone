@@ -1,0 +1,15 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    width: 520px;
+    background-color: var(--primary);
+}
+
+
+@media (max-width: 650px) {
+    :host {
+        width: auto;
+    }
+}
+
+

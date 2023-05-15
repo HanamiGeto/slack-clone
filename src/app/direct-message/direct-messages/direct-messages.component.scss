@@ -1,0 +1,42 @@
+
+.channel-sidebar-container {
+  padding-top: 0;
+}
+
+.channel-sidebar-name {
+  z-index: 10;
+  position: relative;
+}
+
+.direct-messages {
+  padding: 0 13px 1px;
+  gap: 5px;
+}
+
+.logged-in {
+  height: 8px;
+  width: 8px;
+  border-radius: 100%;
+  position: absolute;
+  top: 20px;
+  left: 31px;
+  background-color: rgb(91 196 91);
+}
+
+.logged-out {
+  height: 8px;
+  width: 8px;
+  border-radius: 100%;
+  position: absolute;
+  top: 20px;
+  left: 31px;
+  background-color: rgb(167, 167, 167);
+}
+
+.profile-picture {
+  height: 23px;
+  width: 23px;
+  border-radius: 5px;
+  object-fit: cover;
+  object-position: center;
+}

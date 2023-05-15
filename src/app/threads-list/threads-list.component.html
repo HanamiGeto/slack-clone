@@ -1,0 +1,114 @@
+<div class="content-header">
+    <div class="channel-elements">
+        <button *ngIf="responsiveView" class="sidenav-btn" (click)="toggleSidenav()">
+            <mat-icon>menu_open</mat-icon>
+        </button>
+        <span>Threads</span>
+    </div>
+</div>
+
+<div class="content-container" #contentContainer>
+
+    <div *ngFor="let thread of ownThreads; let i = index; let last = last"
+    [class.d-none]="
+    !thread.elem.message.toLowerCase().includes(channelService.searchValue.toLowerCase()) && 
+    !(thread.elem.author | getUserNameById | async)?.displayName.toLowerCase().includes(channelService.searchValue.toLowerCase())
+        "
+    >
+        <div class="threads-heading">
+            <div class="channel-elements">
+                <mat-icon>numbers</mat-icon>
+                <span>{{ thread.name }}</span>
+            </div>
+        </div>
+
+        <div class="threads-content">
+
+            <div class="message-container">
+                <img class="profile-picture-content" height="45" width="45" [ngStyle]="{
+                'background-color': usersService.generateColorHsl(
+                  (thread.elem.author | getUserNameById | async)
+                    ?.displayName
+                )
+              }" [src]="(thread.elem.author | getUserNameById | async)?.photoURL ?? 'assets/img/image-placeholder.png'" />
+                <div class="message-container-right">
+                    <div class="user-and-time">
+                        <span>{{ (thread.elem.author | getUserNameById | async)?.displayName }}</span>
+
+                        <span
+                            *ngIf="thread.elem.timestamp > channelService.getLastMidnightTime && channelService.currentDate < channelService.getNextMidnightTime">
+                            vor {{ channelService.currentDate - thread.elem.timestamp |
+                            date:'m'}}
+                            Minuten
+                        </span>
+
+                        <!-- shows last answer from yesterday with hours -->
+                        <span
+                            *ngIf="thread.elem.timestamp > channelService.getDayBeforeMidnightTime && channelService.currentDate < channelService.getLastMidnightTime">
+                            vor {{ channelService.currentDate - thread.elem.timestamp |
+                            date:'H'}} Stunden
+                        </span>
+
+                        <!-- shows last answer from last days -->
+                        <span
+                            *ngIf="thread.elem.timestamp < channelService.getDayBeforeMidnightTime || thread.elem.timestamp < channelService.getLastMidnightTime">
+                            vor {{ channelService.getLastMidnightTime - thread.elem.timestamp |
+                            date:'d'}} Tagen
+                        </span>
+                    </div>
+                    <quill-view class="message-text" [content]="thread.elem.message" format="html" theme="snow"></quill-view>
+
+                    <div class="options-container">
+                        <button matTooltip="In Channel öffnen" [matTooltipPosition]="'above'"
+                            (click)="goToChannel(i)">
+                            <mat-icon>chat</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="message-container" *ngFor="let replies of ownThreads[i].elem.replies">
+                <img class="profile-picture-content" height="45" width="45" [ngStyle]="{
+                'background-color': usersService.generateColorHsl(
+                  (replies.author | getUserNameById | async)
+                    ?.displayName
+                )
+              }" [src]="(thread.author | getUserNameById | async)?.photoURL ?? 'assets/img/image-placeholder.png'" />
+                <div class="message-container-right">
+                    <div class="user-and-time">
+                        <span>{{ (replies.author | getUserNameById | async)?.displayName }}</span>
+
+                        <span
+                            *ngIf="replies.timestamp > channelService.getLastMidnightTime && channelService.currentDate < channelService.getNextMidnightTime">
+                            vor {{ channelService.currentDate - replies.timestamp |
+                            date:'m'}}
+                            Minuten
+                        </span>
+
+                        <!-- shows last answer from yesterday with hours -->
+                        <span
+                            *ngIf="replies.timestamp > channelService.getDayBeforeMidnightTime && channelService.currentDate < channelService.getLastMidnightTime">
+                            vor {{ channelService.currentDate - replies.timestamp |
+                            date:'H'}} Stunden
+                        </span>
+
+                        <!-- shows last answer from last days -->
+                        <span
+                            *ngIf="replies.timestamp < channelService.getDayBeforeMidnightTime || replies.timestamp < channelService.getLastMidnightTime">
+                            vor {{ channelService.getLastMidnightTime - replies.timestamp |
+                            date:'d'}} Tagen
+                        </span>
+                    </div>
+                    <quill-view class="message-text" [content]="replies.message" format="html"
+                        theme="snow"></quill-view>
+
+                    <div class="options-container">
+                        <button matTooltip="In Channel öffnen" [matTooltipPosition]="'above'"
+                            (click)="goToChannel(i)">
+                            <mat-icon>chat</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

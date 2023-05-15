@@ -1,0 +1,129 @@
+<mat-toolbar>
+  <div class="mat-container">
+    <img src="assets/img/Logo.png" alt="" />
+
+    <div>
+      <span>Slack clone</span>
+    </div>
+  </div>
+</mat-toolbar>
+
+<div class="card-container">
+  <mat-tab-group>
+    <mat-tab label="Log In">
+      <mat-card class="login-card">
+        <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+          <mat-card-header>
+            <mat-card-title>Log In</mat-card-title>
+            <p>Log in to your account or create a new one!</p>
+            <mat-divider></mat-divider>
+          </mat-card-header>
+
+          <mat-card-actions>
+            <div class="input-container">
+              <mat-form-field appearance="fill">
+                <mat-label>Enter your email</mat-label>
+                <input
+                  formControlName="email"
+                  type="email"
+                  matInput
+                  placeholder="user@example.com"
+                  required
+                />
+                <mat-error>
+                  <ng-container *ngIf="loginForm.controls['email'] as email">
+                    <ng-container *ngIf="email.dirty || email.touched">
+                      <ng-container *ngIf="email.errors as errors">
+                        <p class="error" *ngIf="errors['required']">
+                          Your Email is required.
+                        </p>
+                        <p class="error" *ngIf="errors['pattern']">
+                          Please enter a valid Email.
+                        </p>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Enter your password</mat-label>
+                <input
+                  matInput
+                  formControlName="password"
+                  type="password"
+                  [type]="hide ? 'password' : 'text'"
+                />
+                <button
+                  mat-icon-button
+                  matSuffix
+                  (click)="hide = !hide"
+                  [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide"
+                >
+                  <mat-icon>{{
+                    hide ? "visibility_off" : "visibility"
+                  }}</mat-icon>
+                </button>
+
+                <mat-error>
+                  <ng-container
+                    *ngIf="loginForm.controls['password'] as password"
+                  >
+                    <ng-container *ngIf="password.dirty || password.touched">
+                      <ng-container *ngIf="password.errors as errors">
+                        <p class="error" *ngIf="errors['required']">
+                          Your Password is required.
+                        </p>
+                        <p class="error" *ngIf="errors['minlength']">
+                          Password requires at least 6 characters!
+                        </p>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="button-container">
+              <button
+                mat-raised-button
+                color="primary"
+                [ngClass]="{
+                  'secondary-button-white': loginForm.valid,
+                  'secondary-button-white-grey': !loginForm.valid
+                }"
+                type="submit"
+                [disabled]="
+                  !(loginForm.valid && (loginForm.dirty || loginForm.touched))
+                "
+              >
+                Log In
+              </button>
+            </div>
+          </mat-card-actions>
+
+          <mat-progress-bar
+            *ngIf="loading"
+            mode="indeterminate"
+            class="progress-bar"
+          ></mat-progress-bar>
+        </form>
+        <div class="button-container">
+          <button
+            mat-raised-button
+            class="guest-button"
+            (click)="authService.loginUser('guest@info.com', 'guest1234')"
+          >
+            Guest Log in
+          </button>
+        </div>
+      </mat-card>
+      
+    </mat-tab>
+    <mat-tab class="mat-tab" label="Sign-Up">
+      <app-register class="register"></app-register>
+    </mat-tab>
+
+    
+  </mat-tab-group>
+</div>

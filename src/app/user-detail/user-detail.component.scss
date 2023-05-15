@@ -1,0 +1,79 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    width: 520px;
+    background-color: var(--primary);
+}
+
+.create-direct-message {
+    height: 55px;
+
+    &:focus-within {
+        border-color: #0000;
+        box-shadow: 0 0 0 1px rgb(29, 155, 209), 0 0 0 5px #1d9bd14d;
+    }
+}
+
+.form-field-direct-message {
+    width: 100%;
+}
+
+::ng-deep .mdc-text-field--filled {
+    background-color: transparent !important;
+}
+
+::ng-deep .mdc-text-field {
+    border-bottom-right-radius: var(--mdc-shape-small, 4px) !important;
+    border-bottom-left-radius: var(--mdc-shape-small, 4px) !important;
+}
+
+::ng-deep .mdc-line-ripple::before {
+    border-bottom-color: transparent !important;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 300px; 
+    justify-content: space-between;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.profile-pic-container {
+    width: 100%; 
+    display: flex;
+    justify-content: center;
+}
+
+
+.profile-pic img {
+    border-radius: 10px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.profile-pic {
+    position: relative;
+}
+
+.mat-mdc-mini-fab.mat-accent {
+    background-color: var(--mint);
+}
+
+.fab-button {
+    position: absolute;
+    bottom: -7px;
+    right: -7px;
+}
+
+@media (max-width: 650px) {
+    :host {
+        width: auto;
+    }
+
+    .dialog-header h1 {
+        font-size: 20px;
+    }
+}

@@ -1,0 +1,221 @@
+:host {
+    display: flex;
+    background-color: var(--primary);
+    margin-top: auto;
+}
+
+.text-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 20px;
+    background-color: #222529;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+
+
+}
+
+.formating {
+    display: flex;
+    padding: 8px;
+
+    button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        border: none;
+        border-radius: 5px;
+        padding: 0;
+        height: 28px;
+        width: 28px;
+        transition: all 125ms ease-in-out;
+
+        &:hover:not(:disabled) {
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: all 125ms ease-in-out;
+        }
+
+        &:not(:disabled) {
+            cursor: pointer;
+        }
+    }
+
+    mat-icon {
+        color: rgba(255, 255, 255, 0.2);
+    }
+}
+
+.text-message {
+    padding: 8px 12px;
+
+    input {
+        box-sizing: border-box;
+        background-color: transparent;
+        border: none;
+        width: 100%;
+        font-size: 15px;
+        color: grey;
+
+        &::placeholder {
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+.text-box-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 8px 12px;
+
+}
+
+.left-side {
+    mat-icon {
+        color: grey;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: all 125ms ease-in-out;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: all 125ms ease-in-out;
+        }
+    }
+}
+
+.active {
+    border-color: rgba(255, 255, 255, 0.5);
+
+    .formating {
+        mat-icon {
+            color: grey;
+        }
+    }
+}
+
+.send-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #148567;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    cursor: pointer;
+    z-index: 100;
+
+    mat-icon {
+        color: white;
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+    }
+
+    &:disabled {
+        cursor: unset;
+        background-color: transparent;
+
+        mat-icon {
+            color: grey;
+        }
+    }
+}
+
+::ng-deep .ql-container * {
+    font-family: 'Roboto' !important;
+    font-size: 15px;
+}
+
+::ng-deep .ql-editor.ql-blank::before {
+    color: grey;
+    font-family: 'Roboto' !important;
+    font-style: normal;
+    font-size: 15px;
+}
+
+::ng-deep .ql-toolbar.ql-snow {
+    border: none;
+}
+
+::ng-deep .ql-container.ql-snow {
+    border: none;
+}
+
+::ng-deep .ql-editor p {
+    color: #D1D2D3;
+}
+
+::ng-deep #emoji-palette {
+    max-width: 360px;
+    top: -300px !important;
+    left: 0 !important;
+
+    #tab-toolbar {
+        background-color: var(--secondary) !important;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+
+        ul {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    #tab-panel {
+        background-color: var(--secondary);
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        display: block;
+        padding: 5px;
+        height: 220px;
+    }
+}
+
+::ng-deep .ql-snow.ql-toolbar button,
+.ql-snow .ql-toolbar button {
+    height: 28px;
+    padding: 5px;
+    border-radius: 5px;
+    transition: all 125ms ease-in-out;
+
+    &:hover {
+        background-color: rgba(128, 128, 128, 0.082);
+        transition: all 125ms ease-in-out;
+    }
+}
+
+::ng-deep .ql-snow.ql-toolbar button.ql-active {
+    color: grey;
+    background-color: rgba(128, 128, 128, 0.178);
+}
+
+::ng-deep .ql-snow.ql-toolbar button.ql-active .ql-stroke {
+    stroke: grey;
+}
+
+::ng-deep .ql-snow.ql-toolbar button:hover .ql-stroke {
+    stroke: grey;
+}
+
+::ng-deep .ql-snow.ql-toolbar button.ql-active .ql-fill {
+    fill: grey;
+}
+
+::ng-deep .ql-snow.ql-toolbar button:hover .ql-fill {
+    fill: grey;
+}
+
+@media (max-width: 385px) {
+    ::ng-deep .ql-toolbar.ql-snow .ql-formats {
+        margin-right: 0;
+    }
+}

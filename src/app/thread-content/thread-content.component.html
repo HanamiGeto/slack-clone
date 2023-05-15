@@ -1,0 +1,109 @@
+<div class="content-header thread-header">
+    <div class="channel-elements thread">
+        <span>Thread</span>
+        <mat-icon>numbers</mat-icon>
+        <span>{{ channelService.channel.name }}</span>
+    </div>
+    <div class="close-btn" (click)="channelService.threadOpen = false">
+        <mat-icon>close</mat-icon>
+    </div>
+</div>
+
+<div class="content-container">
+    <div class="message-container">
+            <img class="profile-picture-content" height="45" width="45"
+            [ngStyle]="{
+                'background-color': usersService.generateColorHsl(
+                  (channelService.threadContent.author | getUserNameById | async)
+                    ?.displayName
+                )
+              }"
+                [src]="(channelService.threadContent.author | getUserNameById | async)?.photoURL ?? 'assets/img/image-placeholder.png'" />
+        <div class="message-container-right">
+            <div class="user-and-time">
+                <span>{{ (channelService.threadContent.author | getUserNameById | async)?.displayName }}</span>
+
+                <span
+                    *ngIf="channelService.currentDate - channelService.threadContent.timestamp < 120000">
+                    vor < 1 Minute
+                </span>
+
+                <!-- shows last answer of today in hours-->
+                <span
+                    *ngIf="channelService.currentDate - channelService.threadContent.timestamp < 3600000 && channelService.currentDate - channelService.threadContent.timestamp > 120000">
+                    vor {{ channelService.currentDate - channelService.threadContent.timestamp |
+                    date:'m'}}
+                    Minuten
+                </span>
+
+                <!-- shows last answer from yesterday with hours -->
+                <span
+                    *ngIf="channelService.currentDate - channelService.threadContent.timestamp > 3600000 && channelService.threadContent.timestamp > channelService.getLastMidnightTime">
+                    vor {{ channelService.currentDate - channelService.threadContent.timestamp |
+                    date:'H'}} Stunden
+                </span>
+
+                <!-- shows last answer from last days -->
+                <span
+                    *ngIf="channelService.threadContent.timestamp < channelService.getDayBeforeMidnightTime || channelService.threadContent.timestamp < channelService.getLastMidnightTime">
+                    vor {{ channelService.getLastMidnightTime - channelService.threadContent.timestamp |
+                    date:'d'}} Tagen
+                </span>
+            </div>
+            <quill-view class="message-text" [content]="channelService.threadContent.message" format="html"
+                theme="snow"></quill-view>
+        </div>
+    </div>
+
+    <div class="answers-divider">
+        <span>{{ channelService.channel.thread[this.channelService.threadContentIndex].replies.length }}
+            Antworten</span>
+        <div class="divider-line"></div>
+    </div>
+
+    <div class="message-container"
+        *ngFor="let replies of channelService.channel.thread[this.channelService.threadContentIndex].replies">
+        <div>
+            <img class="profile-picture-content" height="45" width="45"
+            [ngStyle]="{
+                'background-color': usersService.generateColorHsl(
+                  (replies.author | getUserNameById | async)
+                    ?.displayName
+                )
+              }"
+                [src]="(replies.author | getUserNameById | async)?.photoURL ?? 'assets/img/image-placeholder.png'" />
+        </div>
+        <div class="message-container-right">
+            <div class="user-and-time">
+                <span>{{ (replies.author | getUserNameById | async)?.displayName }}</span>
+
+                <span
+                    *ngIf="channelService.currentDate - replies.timestamp < 120000">
+                    vor < 1 Minute
+                </span>
+
+                <!-- shows last answer of today in minutes-->
+                <span
+                    *ngIf="channelService.currentDate - replies.timestamp < 3600000 && channelService.currentDate - replies.timestamp > 120000">
+                    vor {{ channelService.currentDate - replies.timestamp | date:'m'}}
+                    Minuten
+                </span>
+
+                <!-- shows last answer from yesterday with hours -->
+                <span
+                    *ngIf="channelService.currentDate - replies.timestamp > 3600000 && replies.timestamp > channelService.getLastMidnightTime">
+                    vor {{ channelService.currentDate - replies.timestamp |
+                    date:'H'}} Stunden
+                </span>
+
+                <!-- shows last answer from last days -->
+                <span
+                    *ngIf="replies.timestamp < channelService.getDayBeforeMidnightTime || replies.timestamp < channelService.getLastMidnightTime">
+                    vor {{ channelService.getLastMidnightTime - replies.timestamp |
+                    date:'d'}} Tagen
+                </span>
+            </div>
+            <quill-view class="message-text" [content]="replies.message" format="html" theme="snow"></quill-view>
+        </div>
+    </div>
+</div>

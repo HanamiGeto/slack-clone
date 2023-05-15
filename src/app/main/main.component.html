@@ -1,0 +1,61 @@
+<mat-drawer-container class="drawer-container" [hasBackdrop]="false">
+  <mat-drawer #drawer class="sidebar" mode="side" opened>
+    
+    <!-- sidebar header -->
+
+    <div class="channel-sidebar-container border-bottom header-logo">
+      <div (click)="responsiveView && sidenav.close()" class="channel-sidebar-header no-hover">
+        <div class="logo-wrapper">
+          <img src="assets/img/Logo.png" alt="">
+          <span>Slack clone</span>
+        </div>
+        <mat-icon *ngIf="responsiveView">menu_open</mat-icon>
+      </div>
+    </div>
+
+    <!-- threads -->
+
+    <div class="channel-sidebar-container border-bottom">
+      <div class="channel-sidebar-name" [routerLink]="['/home/threads-list']" routerLinkActive="sidenav-active" (click)="channelService.threadOpen = false; responsiveView && sidenav.close()">
+        <mat-icon>chat</mat-icon>
+        <span>Threads</span>
+      </div>
+      <div
+        routerLinkActive="sidenav-active"
+        [routerLink]="['/home/user-list/']"
+        class="channel-sidebar-name"
+        (click)="channelService.threadOpen = false; responsiveView && sidenav.close()"
+      >
+        <mat-icon>group</mat-icon>
+        <span>Users</span>
+      </div>
+    </div>
+
+    <!-- channels -->
+
+    <app-channels></app-channels>
+
+    <!-- direct messages -->
+
+        <app-direct-messages></app-direct-messages>
+    </mat-drawer>
+    <mat-drawer-content class="content">
+
+        <!-- content -->
+        <div class="channel-content" #channelContent>
+            <router-outlet></router-outlet>
+            <app-textbox *ngIf="checkRoute()" id="text-content"></app-textbox>
+        </div>
+
+    <!-- thread -->
+
+    <div
+      *ngIf="channelService.threadOpen"
+      class="channel-content thread-content"
+      id="thread-content"
+    >
+      <app-thread-content></app-thread-content>
+      <app-textbox id="text-thread"></app-textbox>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

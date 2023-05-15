@@ -1,0 +1,93 @@
+<div class="content-header">
+  <div class="channel-elements">
+    <button *ngIf="responsiveView" class="sidenav-btn" (click)="toggleSidenav()">
+      <mat-icon>menu_open</mat-icon>
+    </button>
+    <div class="profile-picture-container">
+      <img class="profile-picture" [ngStyle]="{
+          'background-color': usersService.generateColorHsl(
+            (dmService.currentChannelRecipient | getUserNameById | async)
+              ?.displayName
+          )
+        }" height="36" width="36" [src]="
+          (dmService.currentChannelRecipient | getUserNameById | async)
+            ?.photoURL ?? 'assets/img/image-placeholder.png'
+        " />
+      <div [ngClass]="{
+          'logged-in':
+            (dmService.currentChannelRecipient | getUserNameById | async)
+              ?.status == true,
+          'logged-out':
+            (dmService.currentChannelRecipient | getUserNameById | async)
+              ?.status == false
+        }"></div>
+    </div>
+    <span>{{
+      (dmService.currentChannelRecipient | getUserNameById | async)?.displayName
+      }}</span>
+  </div>
+</div>
+
+<div class="content-container">
+
+  <div class="direct-message-info">
+
+    <div class="direct-message-header">
+        <img class="profile-picture" [ngStyle]="{
+          'background-color': usersService.generateColorHsl(
+            (dmService.currentChannelRecipient | getUserNameById | async)
+              ?.displayName
+          )
+        }" height="36" width="36" [src]="
+          (dmService.currentChannelRecipient | getUserNameById | async)
+            ?.photoURL ?? 'assets/img/image-placeholder.png'
+        " />
+      <span>{{
+        (dmService.currentChannelRecipient | getUserNameById | async)?.displayName
+        }}</span>
+        <div [ngClass]="{
+          'logged-in':
+            (dmService.currentChannelRecipient | getUserNameById | async)
+              ?.status == true,
+          'logged-out':
+            (dmService.currentChannelRecipient | getUserNameById | async)
+              ?.status == false
+        }"></div>
+    </div>
+    <p>
+      Diese Unterhaltung findet nur zwischen <span>{{(dmService.currentChannelRecipient | getUserNameById | async)?.displayName}}</span> und dir statt.
+    </p>
+
+  </div>
+
+  <div *ngFor="let message of dmService.currentChannelMessages; let i = index; let last = last;" [class.d-none]="
+  !message.content.toLowerCase().includes(channelService.searchValue.toLowerCase()) && 
+  !(message.author | getUserNameById | async)?.displayName.toLowerCase().includes(channelService.searchValue.toLowerCase())
+      ">
+    <div class="message-list-day-divider" *ngIf="channelService.isDifferentDay(i, dmService.currentChannelMessages)"
+      id="">
+      <div class="divider-line"></div>
+      <mat-chip>{{ channelService.getMessageDate(i, dmService.currentChannelMessages) }}</mat-chip>
+      <div class="divider-line"></div>
+    </div>
+    <div class="message-container">
+      <div>
+        <img class="profile-picture-content" [ngStyle]="{
+          'background-color': usersService.generateColorHsl(
+            (message.author | getUserNameById | async)?.displayName
+          )
+        }" height="36" width="36" [src]="
+          (message.author | getUserNameById | async)?.photoURL ??
+          'assets/img/image-placeholder.png'
+        " />
+      </div>
+      <div class="message-container-right">
+        <div class="user-and-time">
+          <span>{{ (message.author | getUserNameById | async)?.displayName }}</span>
+          <span>{{ message.timestamp | date : "HH:mm" }} Uhr</span>
+        </div>
+        <quill-view class="message-text" [content]="message.content" format="html" theme="snow"></quill-view>
+      </div>
+    </div>
+  </div>
+</div>

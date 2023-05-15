@@ -1,0 +1,155 @@
+mat-icon {
+  cursor: pointer;
+}
+mat-toolbar {
+  background: var(--light-grey);
+  display: flex;
+  justify-content: center;
+  img {
+    height: 36px;
+    width: 36px;
+  }
+
+  @media (max-width: 600px) {
+  }
+}
+
+::ng-deep .mat-mdc-tab-group {
+  height: 100%;
+  width: 100%
+}
+
+::ng-deep .mat-mdc-tab-body {
+  height: 100%;
+  width: 100%
+}
+
+::ng-deep .mat-mdc-tab-body-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%
+}
+
+::ng-deep .mat-mdc-tab-body-wrapper {
+  height: 100%;
+  width: 100%
+}
+
+mat-card-header {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 20%;
+  mat-card-title {
+    text-align: center;
+  }
+  p {
+    text-align: center;
+  }
+}
+
+.mat-mdc-form-field {
+  width: 300px;
+}
+
+.progress-bar {
+  position: absolute;
+  bottom: 45px;
+}
+
+.mdc-card__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 52px;
+  padding: 8px;
+  height: 100%;
+}
+
+.mat-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 20px;
+  @media (max-width: 600px) {
+    justify-content: flex-start;
+  }
+}
+
+.login-card {
+  max-width: 500px;
+  max-height: 600px;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  background: var(--light-grey);
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+
+  @media (max-width: 600px) {
+    max-height: unset;
+    max-width: unset;
+    border-radius: 0px;
+  }
+}
+
+.card-container {
+  height: calc(100% - 64px);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  background: var(--primary);
+  @media (max-width: 600px) {
+    height: calc(100% - 56px);
+  }
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.button-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  button {
+    color: white;
+    width: 100%;
+    height: 50px;
+    max-width: 300px;
+  }
+}
+
+.mdc-text-field .mdc-text-field__input:focus {
+  color: var(--mint);
+}
+
+.return-link {
+  display: flex;
+  margin-top: 20px;
+  span {
+    color: white;
+  }
+  p {
+    color: #1d9bd1;
+    cursor: pointer;
+  }
+  @media (max-width: 600px) {
+    display: none;
+  }
+}

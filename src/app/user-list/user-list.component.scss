@@ -1,0 +1,129 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    overflow: overlay;
+}
+
+.answers {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 600px;
+    margin-left: -4px;
+    margin-top: 5px;
+    border-radius: 5px;
+    padding: 4px;
+    cursor: pointer;
+    transition: all 125ms ease-in-out;
+    border: 1px solid transparent;
+
+    &:hover {
+        background-color: var(--primary);
+        transition: all 125ms ease-in-out;
+        border-color: rgba(255, 255, 255, 0.1);
+
+        .reply-bar-description span {
+            &:first-of-type {
+                opacity: 0;
+                transition: opacity .2s ease;
+            }
+
+            &:last-of-type {
+                opacity: 1;
+                transition: opacity .2s ease;
+            }
+        }
+
+        .thread-icon {
+            opacity: 1;
+            transition: opacity .2s ease;
+        }
+    }
+
+    span {
+        font-size: 13px;
+        color: #1d9bd1;
+        font-weight: 700;
+
+
+    }
+}
+
+.reply-bar-description {
+    position: relative;
+
+    span {
+
+        color: grey;
+        font-weight: 400;
+
+        &:first-of-type {
+            opacity: 1;
+            transition: opacity .2s ease;
+        }
+
+        &:last-of-type {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            opacity: 0;
+            transition: opacity .2s ease;
+        }
+    }
+}
+
+.thread-icon {
+    margin-left: auto;
+    color: grey;
+    font-size: 18px;
+    height: 18px;
+    width: 18px;
+    opacity: 0;
+    transition: opacity .2s ease;
+}
+
+.pin-bottom {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+}
+
+.profile-picture {
+    border-radius: 5px;
+    object-fit: cover;
+    object-position: center;
+    height: 23px;
+    width: 23px;
+    margin-right: 10px;
+  }
+
+
+  .logged-in {
+    height: 10px;
+    width: 10px;
+    border-radius: 100%;
+    position: absolute;
+    top: 32px;
+    left: 37px;
+    background-color: rgb(91 196 91);
+  }
+  
+  .logged-out {
+    height: 10px;
+    width: 10px;
+    border-radius: 100%;
+    position: absolute;
+    top: 32px;
+    left: 37px;
+    background-color: rgb(167, 167, 167);
+  }
+  
+  .pointer {
+    cursor: pointer;
+  }
+
+  .d-none {
+    display: none;
+  }

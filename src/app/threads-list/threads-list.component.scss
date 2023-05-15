@@ -1,0 +1,55 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    overflow: overlay;
+    position: relative;
+}
+
+.profile-picture-content {
+    height: 36px;
+    width: 36px;
+    border-radius: 5px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+.threads-heading {
+    margin: 16px 28px 12px 24px;
+
+    .channel-elements {
+        
+        span {
+            font-size: 15px;
+        }
+
+        mat-icon {
+            height: 15px;
+            width: 15px;
+            font-size: 15px;
+        }
+    }
+}
+
+.content-container {
+    background-color: rgb(34, 37, 41);
+    height: 100vh;
+}
+
+.threads-content {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    background-color: var(--primary);
+    margin: 0 17px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.threads-answers {
+    display: flex;
+}
+
+
+.d-none {
+    display: none;
+}
+

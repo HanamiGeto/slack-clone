@@ -1,0 +1,34 @@
+<div class="content-header">
+  <div class="channel-elements">
+    <button *ngIf="responsiveView" class="sidenav-btn" (click)="toggleSidenav()">
+      <mat-icon>menu_open</mat-icon>
+    </button>
+    <mat-icon>numbers</mat-icon>
+    <span>Users</span>
+  </div>
+</div>
+
+<div class="content-container">
+  <div class="message-container pointer" *ngFor="let user of usersService.users; let i = index" [class.d-none]="
+        !(user.uid | getUserNameById | async)?.displayName.includes(channelService.searchValue)
+            " (click)="dmService.createDmChannel(user.uid, user.displayName)"
+    matTooltip="Write this person a message.">
+    <div>
+      <img class="profile-picture-content" [ngStyle]="{
+          'background-color': 
+            usersService.generateColorHsl(
+            (user.uid | getUserNameById | async)?.displayName
+          )
+        }" height="36" width="36" [src]="
+          (user.uid | getUserNameById | async)?.photoURL ??
+          'assets/img/image-placeholder.png'
+        " />
+    </div>
+    <div class="message-container-right">
+      <div class="user-and-time">
+        <span>{{ (user.uid | getUserNameById | async)?.displayName }}</span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,124 @@
+<mat-card class="login-card">
+    <form [formGroup]="registerForm" (ngSubmit)="signUp()">
+      <mat-card-header>
+        <mat-card-title>Sign up</mat-card-title>
+        <p>Create a new account for free.</p>
+        <mat-divider></mat-divider>
+      </mat-card-header>
+
+      <mat-card-actions>
+        <div class="input-container">
+          <mat-form-field appearance="fill">
+            <mat-label>Enter your name</mat-label>
+            <input
+              formControlName="displayName"
+              type="name"
+              matInput
+              placeholder="Power User"
+              required
+            />
+            <mat-error>
+              <ng-container
+                *ngIf="registerForm.controls['displayName'] as name"
+              >
+                <ng-container *ngIf="name.dirty || name.touched">
+                  <ng-container *ngIf="name.errors as errors">
+                    <p class="error" *ngIf="errors['required']">
+                      Your Name is required.
+                    </p>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Enter your email</mat-label>
+            <input
+              formControlName="email"
+              type="email"
+              matInput
+              placeholder="user@example.com"
+              required
+            />
+            <mat-error>
+              <ng-container *ngIf="registerForm.controls['email'] as email">
+                <ng-container *ngIf="email.dirty || email.touched">
+                  <ng-container *ngIf="email.errors as errors">
+                    <p class="error" *ngIf="errors['required']">
+                      Your Email is required.
+                    </p>
+                    <p class="error" *ngIf="errors['pattern']">
+                      Please enter a valid Email.
+                    </p>
+                    
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Enter your password</mat-label>
+            <input
+              matInput
+              formControlName="password"
+              type="password"
+              [type]="hide ? 'password' : 'text'"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
+
+            <mat-error>
+              <ng-container
+                *ngIf="registerForm.controls['password'] as password"
+              >
+                <ng-container *ngIf="password.dirty || password.touched">
+                  <ng-container *ngIf="password.errors as errors">
+                    <p class="error" *ngIf="errors['required']">
+                      Your Password is required.
+                    </p>
+                    <p class="error" *ngIf="errors['minlength']">
+                      Password requires at least 6 characters!
+                    </p>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="button-container">
+          <button
+            mat-raised-button
+            color="primary"
+            [ngClass]="{
+              'secondary-button-white': registerForm.valid,
+              'secondary-button-white-grey': !registerForm.valid
+            }"
+            type="submit"
+            [disabled]="
+              !(
+                registerForm.valid &&
+                (registerForm.dirty || registerForm.touched)
+              )
+            "
+          >
+            Sign up
+          </button>
+        </div>
+      </mat-card-actions>
+
+      <mat-progress-bar
+        *ngIf="loading"
+        mode="indeterminate"
+        class="progress-bar"
+      ></mat-progress-bar>
+    </form>
+  </mat-card>

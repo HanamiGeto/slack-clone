@@ -1,0 +1,27 @@
+<div class="channel-sidebar-container">
+    <div class="channels-dropdown-header">
+        <div class="dropdown-btn">
+            <mat-icon (click)="toggleDropdown()" [ngClass]="collapsed ? 'rotate90' : ''"
+                style="transition: all 125ms ease-in-out">arrow_drop_down</mat-icon>
+        </div>
+        <span mat-button [matMenuTriggerFor]="channels">
+            Channels
+            <mat-icon>keyboard_arrow_down</mat-icon>
+        </span>
+        <mat-menu #channels="matMenu">
+            <button mat-menu-item (click)="openDialog()">Channel erstellen</button>
+        </mat-menu>
+    </div>
+
+    <div *ngIf="!collapsed">
+        <div class="channel-sidebar-name" *ngFor="let channel of allChannel" [routerLink]="['/home/channel/' + channel.channelId]" routerLinkActive="sidenav-active" (click)="channelService.threadOpen = false; responsiveView && sidenav.close()">
+            <mat-icon>numbers</mat-icon>
+            <span>{{ channel.name }}</span>
+        </div>
+        <div class="channel-sidebar-name no-hover" (click)="openDialog(); channelService.threadOpen = false; responsiveView && sidenav.close()">
+            <mat-icon>add_box</mat-icon>
+            <span>Channels hinzufügen</span>
+        </div>
+    </div>
+
+</div>

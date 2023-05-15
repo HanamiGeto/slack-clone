@@ -1,0 +1,65 @@
+<div class="channel-sidebar-container">
+  <div class="channels-dropdown-header">
+    <div class="dropdown-btn">
+      <mat-icon
+        (click)="toggleDropdown()"
+        [ngClass]="collapsed ? 'rotate90' : ''"
+        style="transition: all 125ms ease-in-out"
+        >arrow_drop_down</mat-icon
+      >
+    </div>
+    <span mat-button [matMenuTriggerFor]="messages">
+      Direktnachrichten
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </span>
+    <mat-menu #messages="matMenu">
+      <button mat-menu-item (click)="openDialog()">
+        Direktnachricht starten
+      </button>
+    </mat-menu>
+  </div>
+
+  <div *ngIf="!collapsed">
+    <div
+      *ngFor="let channel of dmService.allDmChannels; let i = index"
+      class="channel-sidebar-name direct-messages"
+      [routerLink]="['/home/direct-messages/' + channel.dmChannelId]"
+      (click)="channelService.threadOpen = false; responsiveView && sidenav.close()"
+      routerLinkActive="sidenav-active"
+    >
+      <img
+        class="profile-picture"
+        [ngStyle]="{
+          'background-color': usersService.generateColorHsl(
+            (channel.users.recipientID | getUserNameById | async)?.displayName
+          )
+        }"
+        mat-button
+        height="23"
+        width="23"
+        [src]="
+          (channel.users.recipientID | getUserNameById | async)?.photoURL ??
+          'assets/img/image-placeholder.png'
+        "
+      />
+      <div
+        [ngClass]="{
+          'logged-in':
+            (channel.users.recipientID | getUserNameById | async)?.status ==
+            true,
+          'logged-out':
+            (channel.users.recipientID | getUserNameById | async)?.status ==
+            false
+        }"
+      ></div>
+      <span>{{
+        (channel.users.recipientID | getUserNameById | async)?.displayName
+      }}</span>
+    </div>
+
+    <div class="channel-sidebar-name no-hover" (click)="openDialog(); channelService.threadOpen = false; responsiveView && sidenav.close()">
+      <mat-icon>add_box</mat-icon>
+      <span>Kolleg:innen hinzufügen</span>
+    </div>
+  </div>
+</div>

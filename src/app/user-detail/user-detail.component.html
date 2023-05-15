@@ -1,0 +1,61 @@
+<div class="dialog-header">
+  <h1 *ngIf="!isGuest">Benutzerdaten ändern</h1>
+  <h1 *ngIf="isGuest">Für Gast deaktiviert</h1>
+  <div class="icon-container">
+    <mat-icon mat-button mat-dialog-close>close</mat-icon>
+  </div>
+</div>
+
+<div class="container">
+  <div class="profile-pic-container" *ngIf="user$ | async as user">
+    <div class="profile-pic">
+      <img
+        width="120"
+        height="120"
+        [ngStyle]="{'background-color': usersService.generateColorHsl(usersService.currentUserData.displayName)}"
+        [src]="usersService.currentUserData.photoURL ?? 'assets/img/image-placeholder.png'"
+      />
+      <button class="fab-button" mat-mini-fab (click)="inputField.click()">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+    <input
+     type="file" 
+     hidden 
+     #inputField 
+     (change)="uploadFile($event, user)"
+     [disabled]="isGuest"
+     >
+  </div>
+  <div class="create-channel-input">
+    <mat-icon>numbers</mat-icon>
+    <input
+      [(ngModel)]="userName"
+      class="channel-input"
+      type="text"
+      placeholder="Your Name"
+      [disabled]="isGuest"
+    />
+  </div>
+  <div class="create-channel-input">
+    <mat-icon>numbers</mat-icon>
+    <input
+      [(ngModel)]="userEmail"
+      class="channel-input"
+      type="text"
+      placeholder="Your E-mail"
+      [disabled]="isGuest"
+    />
+  </div>
+</div>
+<p class="dialog-description">Hier kannst du deine Benutzerdaten abändern</p>
+<div mat-dialog-actions class="btn-container">
+  <button
+    mat-button
+    class="btn"
+    [disabled]="!userName && !userEmail || isGuest"
+    (click)="updateUserCredentials()"
+  >
+    Weiter
+  </button>
+</div>

@@ -1,0 +1,25 @@
+<mat-toolbar class="header">
+  <div class="searchbar">
+    <input *ngIf="!(url == '/home' || url == '/')" type="text" [(ngModel)]="channelService.searchValue"  [placeholder]="checkRoute() ? showChannelPlaceholder() : 'In Direktnachrichten mit ' + (dmService.currentChannelRecipient | getUserNameById | async)?.displayName + ' suchen'" />
+    <mat-icon class="margin-right" *ngIf="channelService.searchValue != ''" (click)="clearInput()">delete</mat-icon>
+    <mat-icon>search</mat-icon>
+  </div>
+        <img
+          *ngIf="usersService.currentUserData"
+          class="acc"
+          [ngStyle]="{'background-color': usersService.generateColorHsl(usersService.currentUserData.displayName)}"
+          mat-button
+          [matMenuTriggerFor]="menu"
+          height="32"
+          width="32"
+          [src]="usersService.currentUserData.photoURL ?? 'assets/img/image-placeholder.png'"
+      />
+      <div *ngIf="usersService.currentUserData" [ngClass]="{'logged-in': usersService.currentUserData.status == true}"></div>
+
+
+
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="openDialog()">Profil</button>
+    <button mat-menu-item (click)="logout()">Logout</button>
+  </mat-menu>
+</mat-toolbar>
